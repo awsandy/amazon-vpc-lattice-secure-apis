@@ -3,6 +3,7 @@ include etc/environment.sh
 # pre-requisite deploy dynamodb table
 sam: sam.package sam.deploy
 sam.package:
+	echo ${BUCKET} && \ 
 	sam package  -t ${SAM_TEMPLATE} --output-template-file ${SAM_OUTPUT} --s3-bucket ${BUCKET} --s3-prefix ${SAM_STACK}
 sam.deploy:
 	sam deploy  -t ${SAM_OUTPUT} --stack-name ${SAM_STACK} --parameter-overrides ${SAM_PARAMS} --capabilities CAPABILITY_NAMED_IAM
