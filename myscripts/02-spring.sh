@@ -2,6 +2,7 @@ acc=$(aws sts get-caller-identity --query Account --output text)
 reg=$(aws configure get region)
 cd ~/environment/amazon-vpc-lattice-secure-apis/spring
 make sam
+cd ~/environment/amazon-vpc-lattice-secure-apis/spring
 C_REPO_BASE=${acc}.dkr.ecr.${reg}.amazonaws.com
 C_REPO_IMAGE=$(aws ecr describe-repositories --query repositories[].repositoryName --out json | grep demo-spring-infra | tr -d ' |"|,')
 echo $C_REPO_IMAGE
