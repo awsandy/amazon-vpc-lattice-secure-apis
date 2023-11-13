@@ -3,15 +3,15 @@ include etc/environment.sh
 # infrastructure for vpc lattice
 infrastructure: infrastructure.package infrastructure.deploy
 infrastructure.package:
-	sam package --profile ${PROFILE} -t ${INFRASTRUCTURE_TEMPLATE} --output-template-file ${INFRASTRUCTURE_OUTPUT} --s3-bucket ${BUCKET} --s3-prefix ${INFRASTRUCTURE_STACK}
+	sam package  -t ${INFRASTRUCTURE_TEMPLATE} --output-template-file ${INFRASTRUCTURE_OUTPUT} --s3-bucket ${BUCKET} --s3-prefix ${INFRASTRUCTURE_STACK}
 infrastructure.deploy:
-	sam deploy --profile ${PROFILE} -t ${INFRASTRUCTURE_OUTPUT} --stack-name ${INFRASTRUCTURE_STACK} --parameter-overrides ${INFRASTRUCTURE_PARAMS} --capabilities CAPABILITY_NAMED_IAM
+	sam deploy  -t ${INFRASTRUCTURE_OUTPUT} --stack-name ${INFRASTRUCTURE_STACK} --parameter-overrides ${INFRASTRUCTURE_PARAMS} --capabilities CAPABILITY_NAMED_IAM
 
 # create eks cluster
 cluster.create:
-	eksctl create cluster --profile ${PROFILE} -f iac/kubectl/cluster.yaml
+	eksctl create cluster  -f iac/kubectl/cluster.yaml
 cluster.delete:
-	eksctl delete cluster --profile ${PROFILE} -f iac/kubectl/cluster.yaml
+	eksctl delete cluster  -f iac/kubectl/cluster.yaml
 
 # create service account iam role using sam
 # iam: iam.package iam.deploy
@@ -22,15 +22,15 @@ cluster.delete:
 
 # create service account iam role using cloudformation
 sa.create:
-	aws cloudformation create-stack --profile ${PROFILE} --stack-name ${IAM_STACK} --template-body file://${IAM_TEMPLATE} --parameters file://${IAM_PARAMS} --capabilities CAPABILITY_IAM | jq
+	aws cloudformation create-stack  --stack-name ${IAM_STACK} --template-body file://${IAM_TEMPLATE} --parameters file://${IAM_PARAMS} --capabilities CAPABILITY_IAM | jq
 sa.update:
-	aws cloudformation update-stack --profile ${PROFILE} --stack-name ${IAM_STACK} --template-body file://${IAM_TEMPLATE} --parameters file://${IAM_PARAMS} --capabilities CAPABILITY_IAM | jq
+	aws cloudformation update-stack  --stack-name ${IAM_STACK} --template-body file://${IAM_TEMPLATE} --parameters file://${IAM_PARAMS} --capabilities CAPABILITY_IAM | jq
 
 # create gateway api iam role using cloudformation
 gapi.create:
-	aws cloudformation create-stack --profile ${PROFILE} --stack-name ${GAPI_STACK} --template-body file://${GAPI_TEMPLATE} --parameters file://${GAPI_PARAMS} --capabilities CAPABILITY_IAM | jq
+	aws cloudformation create-stack  --stack-name ${GAPI_STACK} --template-body file://${GAPI_TEMPLATE} --parameters file://${GAPI_PARAMS} --capabilities CAPABILITY_IAM | jq
 gapi.update:
-	aws cloudformation update-stack --profile ${PROFILE} --stack-name ${GAPI_STACK} --template-body file://${GAPI_TEMPLATE} --parameters file://${GAPI_PARAMS} --capabilities CAPABILITY_IAM | jq
+	aws cloudformation update-stack  --stack-name ${GAPI_STACK} --template-body file://${GAPI_TEMPLATE} --parameters file://${GAPI_PARAMS} --capabilities CAPABILITY_IAM | jq
 
 # create k8s service account and annotate it with the iam role
 sa.create.application:

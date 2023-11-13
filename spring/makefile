@@ -3,9 +3,9 @@ include etc/environment.sh
 # pre-requisite deploy dynamodb table
 sam: sam.package sam.deploy
 sam.package:
-	sam package --profile ${PROFILE} -t ${SAM_TEMPLATE} --output-template-file ${SAM_OUTPUT} --s3-bucket ${BUCKET} --s3-prefix ${SAM_STACK}
+	sam package  -t ${SAM_TEMPLATE} --output-template-file ${SAM_OUTPUT} --s3-bucket ${BUCKET} --s3-prefix ${SAM_STACK}
 sam.deploy:
-	sam deploy --profile ${PROFILE} -t ${SAM_OUTPUT} --stack-name ${SAM_STACK} --parameter-overrides ${SAM_PARAMS} --capabilities CAPABILITY_NAMED_IAM
+	sam deploy  -t ${SAM_OUTPUT} --stack-name ${SAM_STACK} --parameter-overrides ${SAM_PARAMS} --capabilities CAPABILITY_NAMED_IAM
 
 # build spring application
 mvn.clean:
@@ -22,7 +22,7 @@ docker: docker.build docker.login docker.tag docker.push
 docker.build:
 	docker build -f dockerfile -t ${C_TAG} .
 docker.login:
-	aws ecr --profile ${PROFILE} get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${C_REPO_BASE}
+	aws ecr  get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${C_REPO_BASE}
 docker.tag:
 	docker tag ${C_TAG} ${C_REPO_URI}
 docker.push:
