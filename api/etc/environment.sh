@@ -3,7 +3,7 @@ ACCOUNTID=$(shell aws sts get-caller-identity --query Account --output text)
 REGION=$(shell aws configure get region)
 BUCKET=api-lattice-${ACCOUNTID}-${REGION}
 
-P_VPC_ID=your-vpc-id
+P_VPC_ID=$(shell aws ec2 describe-vpcs --filters "Name=tag:Name,Values=VpcStack/vpc" --query Vpcs[].VpcId --out text)
 P_HOSTEDZONE_DOMAIN=internal.heeki.cloud
 P_DOMAINNAME=api.internal.heeki.cloud
 INFRASTRUCTURE_STACK=lambda-core-infrastructure
