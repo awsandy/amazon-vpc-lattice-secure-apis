@@ -4,6 +4,7 @@ cd ~/environment/amazon-vpc-lattice-secure-apis/spring
 make sam
 C_REPO_BASE=${acc}.dkr.ecr.${reg}.amazonaws.com
 C_REPO_IMAGE=$(aws ecr describe-repositories --query repositories[].repositoryName --out json | grep demo-spring-infra | tr -d ' |"|,')
+echo $C_REPO_IMAGE
 C_VERSION=1
 C_TAG=${C_REPO_IMAGE}:${C_VERSION}
 C_REPO_URI=${C_REPO_BASE}/${C_REPO_IMAGE}:${C_VERSION}
