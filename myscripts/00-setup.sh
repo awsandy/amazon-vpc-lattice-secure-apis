@@ -1,4 +1,8 @@
 cd ~/environment
+sudo yum install gcc-c++ make -y
+sudo yum install https://rpm.nodesource.com/pub_21.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
+sudo yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
+npm install -g aws-cdk --force
 export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
 export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
 #git clone https://github.com/awsandy/amazon-vpc-lattice-secure-apis.git
