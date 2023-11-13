@@ -3,14 +3,13 @@ reg=$(aws configure get region)
 cd ~/environment/amazon-vpc-lattice-secure-apis/spring
 make sam
 C_REPO_BASE=${acc}.dkr.ecr.${reg}.amazonaws.com
-C_REPO_IMAGE=demo-spring-infrastructure-repository-i9t1gsfrlbjz
+C_REPO_IMAGE=$(aws ecr describe-repositories --query repositories[].repositoryName --out json | grep demo-spring-infra | tr -d ' |"|,')
 C_VERSION=1
 C_TAG=${C_REPO_IMAGE}:${C_VERSION}
 C_REPO_URI=${C_REPO_BASE}/${C_REPO_IMAGE}:${C_VERSION}
 JAVA_HOME=/usr/local/opt/openjdk@17
 TARGET=target/demo-0.0.1-SNAPSHOT.jar
 
-C_REPO_IMAGE=demo-spring-infrastructure-repository-i9t1gsfrlbjz
 echo "make mvn app"
 make mvn.clean
 make mvn.compile
