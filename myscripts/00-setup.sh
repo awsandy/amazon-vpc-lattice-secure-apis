@@ -12,5 +12,4 @@ sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-mav
 sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
 sudo yum install -y apache-maven
 mvn --version
-cd ~/environment
-
+cd ~/environment/amazon-vpc-lattice-secure-apis
