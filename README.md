@@ -1,7 +1,7 @@
 -----
 
 
-##  My stuff - Designed form Cloud9 only
+##  My stuff - Designed for Cloud9 only
 
 
 -----

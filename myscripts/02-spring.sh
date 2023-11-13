@@ -7,10 +7,15 @@ C_TAG=${C_REPO_IMAGE}:${C_VERSION}
 C_REPO_URI=${C_REPO_BASE}/${C_REPO_IMAGE}:${C_VERSION}
 JAVA_HOME=/usr/local/opt/openjdk@17
 TARGET=target/demo-0.0.1-SNAPSHOT.jar
-cd amazon-vpc-lattice-secure-apis/spring
+cd ~/environment/amazon-vpc-lattice-secure-apis/spring
+make sam
+C_REPO_IMAGE=demo-spring-infrastructure-repository-i9t1gsfrlbjz
+echo "make mvn app"
 make mvn.clean
 make mvn.compile
 make mvn.package
+echo "mvn package done"
+wcho "push to ECR"
 aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
 docker build -f dockerfile -t ${C_TAG} .
 aws ecr get-login-password --region ${reg} | docker login --username AWS --password-stdin ${C_REPO_BASE}

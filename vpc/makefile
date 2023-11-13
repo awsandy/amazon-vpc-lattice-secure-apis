@@ -2,8 +2,8 @@ include etc/environment.sh
 
 cdk: cdk.synth cdk.deploy
 cdk.bootstrap:
-	cdk bootstrap --profile ${PROFILE}
+	cdk bootstrap
 cdk.synth:
-	cdk synth --profile ${PROFILE} --context cidr=${P_CIDR}
+	cdk synth--context cidr=${P_CIDR}
 cdk.deploy:
-	cdk deploy --profile ${PROFILE} --context cidr=${P_CIDR}
+	cdk deploy ${PROFILE} --context cidr=${P_CIDR}
