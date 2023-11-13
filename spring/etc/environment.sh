@@ -1,7 +1,7 @@
 PROFILE=default
 ACCOUNTID=$(aws sts get-caller-identity --query Account --output text)
 REGION=$(aws configure get region)
-BUCKET=$(echo "api-lattice-$ACCOUNTID-$REGION")
+BUCKET=api-lattice-${ACCOUNTID}-${REGION}
 #JAVA_HOME=/usr/local/opt/openjdk@17
 JAVA_HOME=/home/ec2-user/environment/jdk-17.0.2
 TARGET=target/demo-0.0.1-SNAPSHOT.jar
