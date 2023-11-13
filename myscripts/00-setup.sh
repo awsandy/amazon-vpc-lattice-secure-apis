@@ -1,7 +1,7 @@
 cd ~/environment
 export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
 export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
-git clone https://github.com/awsandy/amazon-vpc-lattice-secure-apis.git
+#git clone https://github.com/awsandy/amazon-vpc-lattice-secure-apis.git
 aws configure set region $AWS_REGION
 cdk bootstrap aws://$ACCOUNT_ID/$AWS_REGION
 cdk acknowledge 27189
