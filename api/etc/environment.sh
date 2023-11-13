@@ -1,7 +1,7 @@
-PROFILE=your-aws-profile
-ACCOUNTID=your-aws-account-id
-REGION=your-aws-region
-BUCKET=your-configuration-bucket
+PROFILE=default
+ACCOUNTID=$(shell aws sts get-caller-identity --query Account --output text)
+REGION=$(shell aws configure get region)
+BUCKET=api-lattice-${ACCOUNTID}-${REGION}
 
 P_VPC_ID=your-vpc-id
 P_HOSTEDZONE_DOMAIN=internal.heeki.cloud
