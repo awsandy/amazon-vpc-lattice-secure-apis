@@ -15,7 +15,7 @@ make mvn.clean
 make mvn.compile
 make mvn.package
 echo "mvn package done"
-wcho "push to ECR"
+echo "push to ECR"
 aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
 docker build -f dockerfile -t ${C_TAG} .
 aws ecr get-login-password --region ${reg} | docker login --username AWS --password-stdin ${C_REPO_BASE}
